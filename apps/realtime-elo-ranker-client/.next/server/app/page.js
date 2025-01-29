@@ -1,0 +1,13 @@
+const CHUNK_PUBLIC_PATH = "server/app/page.js";
+const runtime = require("../chunks/ssr/[turbopack]_runtime.js");
+runtime.loadChunk("server/chunks/ssr/fa16a_next_dist_97977e._.js");
+runtime.loadChunk("server/chunks/ssr/[root of the server]__dc0726._.js");
+runtime.loadChunk("server/chunks/ssr/src_app_e5103a._.js");
+runtime.loadChunk("server/chunks/ssr/[root of the server]__562e1a._.js");
+runtime.loadChunk("server/chunks/ssr/[root of the server]__dd28c7._.css");
+runtime.loadChunk("server/chunks/ssr/08b5e__pnpm_ef84ad._.js");
+runtime.loadChunk("server/chunks/ssr/fa16a_next_dist_client_components_forbidden-error_7e680d.js");
+runtime.loadChunk("server/chunks/ssr/fa16a_next_dist_client_components_unauthorized-error_d9a467.js");
+runtime.loadChunk("server/chunks/ssr/[project]__9aabe3._.js");
+runtime.getOrInstantiateRuntimeModule("[project]/apps/realtime-elo-ranker-client/.next-internal/server/app/page/actions.js [app-rsc] (ecmascript)", CHUNK_PUBLIC_PATH);
+module.exports = runtime.getOrInstantiateRuntimeModule("[project]/node_modules/.pnpm/next@15.1.4_react-dom@19.0.0_react@19.0.0/node_modules/next/dist/esm/build/templates/app-page.js?page=/page { METADATA_0 => \"[project]/apps/realtime-elo-ranker-client/src/app/favicon.ico.mjs { IMAGE => \\\"[project]/apps/realtime-elo-ranker-client/src/app/favicon.ico [app-rsc] (static)\\\" } [app-rsc] (structured image object, ecmascript, Next.js server component)\", MODULE_1 => \"[project]/apps/realtime-elo-ranker-client/src/app/layout.tsx [app-rsc] (ecmascript, Next.js server component)\", MODULE_2 => \"[project]/node_modules/.pnpm/next@15.1.4_react-dom@19.0.0_react@19.0.0/node_modules/next/dist/client/components/not-found-error.js [app-rsc] (ecmascript, Next.js server component)\", MODULE_3 => \"[project]/node_modules/.pnpm/next@15.1.4_react-dom@19.0.0_react@19.0.0/node_modules/next/dist/client/components/forbidden-error.js [app-rsc] (ecmascript, Next.js server component)\", MODULE_4 => \"[project]/node_modules/.pnpm/next@15.1.4_react-dom@19.0.0_react@19.0.0/node_modules/next/dist/client/components/unauthorized-error.js [app-rsc] (ecmascript, Next.js server component)\", MODULE_5 => \"[project]/apps/realtime-elo-ranker-client/src/app/page.tsx [app-rsc] (ecmascript, Next.js server component)\" } [app-rsc] (ecmascript)", CHUNK_PUBLIC_PATH).exports;

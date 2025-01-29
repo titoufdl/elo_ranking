@@ -1,0 +1,20 @@
+{
+  "devFiles": [],
+  "ampDevFiles": [],
+  "polyfillFiles": [
+    "static/chunks/fa16a_next_dist_build_polyfills_polyfill-nomodule.js"
+  ],
+  "lowPriorityFiles": [],
+  "rootMainFiles": [
+    "static/chunks/fa16a_next_dist_compiled_react-dom_5e0a73._.js",
+    "static/chunks/fa16a_next_dist_compiled_1f29f9._.js",
+    "static/chunks/fa16a_next_dist_client_38e0c4._.js",
+    "static/chunks/fa16a_next_dist_e35e72._.js",
+    "static/chunks/eae63_@swc_helpers_cjs_e27e0a._.js",
+    "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_564c13._.js",
+    "static/chunks/[project]_apps_realtime-elo-ranker-client_e69f0d._.js",
+    "static/chunks/[project]_apps_realtime-elo-ranker-client_3a8898._.js"
+  ],
+  "pages": {},
+  "ampFirstPages": []
+}
