@@ -1,11 +1,11 @@
-import { AppService, Player } from '../app.service';
+import { AppService } from '../app.service';
 interface CreatePlayerDto {
     id: string;
 }
 export declare class PlayerController {
     private readonly appService;
     constructor(appService: AppService);
-    getPlayers(): Player[];
-    createPlayer(createPlayerDto: CreatePlayerDto): Player;
+    getPlayers(): Promise<string>;
+    createPlayer(createPlayerDto: CreatePlayerDto): Promise<any>;
 }
 export {};

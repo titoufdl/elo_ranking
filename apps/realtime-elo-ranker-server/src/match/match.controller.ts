@@ -1,5 +1,5 @@
 import { Controller, Post, Body, HttpException, HttpStatus } from '@nestjs/common';
-import { AppService, Player } from '../app.service';
+import { AppService } from '../app.service';
 
 interface MatchResultDto {
   winner: string; // ID du gagnant
@@ -12,7 +12,7 @@ export class MatchController {
   constructor(private readonly appService: AppService) {}
 
   @Post()
-  publishMatchResult(@Body() matchResultDto: MatchResultDto): { winner: Player; loser: Player } {
+  async publishMatchResult(@Body() matchResultDto: MatchResultDto) {
     const { winner, loser, draw } = matchResultDto;
 
     // Validation des identifiants
@@ -23,8 +23,8 @@ export class MatchController {
       );
     }
 
-    const winnerPlayer = this.appService.findPlayerById(winner);
-    const loserPlayer = this.appService.findPlayerById(loser);
+    const winnerPlayer = await this.appService.findPlayerById(winner);
+    const loserPlayer = await this.appService.findPlayerById(loser);
 
     if (!winnerPlayer || !loserPlayer) {
       throw new HttpException(
@@ -33,10 +33,19 @@ export class MatchController {
       );
     }
 
-    // Retourner le résultat du match, sans modifier le classement
-    if (draw) {
-      return { winner: winnerPlayer, loser: loserPlayer };
-    }
+    const K = 32;
+ 
+    const expectedScoreWinner = 1 / (1 + Math.pow(10, (loserPlayer.rank - winnerPlayer.rank) / 400));
+    const expectedScoreLoser = 1 / (1 + Math.pow(10, (winnerPlayer.rank - loserPlayer.rank) / 400));
+        
+    winnerPlayer.rank += K * (1 - expectedScoreWinner);
+    loserPlayer.rank += K * (0 - expectedScoreLoser);
+        
+    winnerPlayer.rank = Math.round(winnerPlayer.rank);
+    loserPlayer.rank = Math.round(loserPlayer.rank);
+
+    this.appService.updatePlayer(winnerPlayer);
+    this.appService.updatePlayer(loserPlayer);
 
     return { winner: winnerPlayer, loser: loserPlayer };
   }

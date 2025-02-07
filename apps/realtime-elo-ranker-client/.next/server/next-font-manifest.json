@@ -1,7 +1,6 @@
 {
   "app": {
-    "[project]/apps/realtime-elo-ranker-client/src/app/page": [],
-    "[project]/apps/realtime-elo-ranker-client/src/app/_not-found/page": []
+    "[project]/apps/realtime-elo-ranker-client/src/app/page": []
   },
   "appUsingSizeAdjust": true,
   "pages": {},

@@ -19,19 +19,19 @@ let PlayerController = class PlayerController {
     constructor(appService) {
         this.appService = appService;
     }
-    getPlayers() {
-        return this.appService.getPlayers();
+    async getPlayers() {
+        return await this.appService.getPlayers();
     }
-    createPlayer(createPlayerDto) {
+    async createPlayer(createPlayerDto) {
         const { id } = createPlayerDto;
         if (!id || typeof id !== 'string' || id.trim() === '') {
             throw new common_1.HttpException({ code: 0, message: "L'identifiant du joueur n'est pas valide" }, common_1.HttpStatus.BAD_REQUEST);
         }
-        const existingPlayer = this.appService.findPlayerById(id);
+        const existingPlayer = await this.appService.findPlayerById(id);
         if (existingPlayer) {
             throw new common_1.HttpException({ code: 0, message: 'Le joueur existe déjà' }, common_1.HttpStatus.CONFLICT);
         }
-        const newPlayer = { id, rank: 0 };
+        const newPlayer = { id: id, rank: 1000 };
         this.appService.addPlayer(newPlayer);
         return newPlayer;
     }
@@ -41,14 +41,14 @@ __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Array)
+    __metadata("design:returntype", Promise)
 ], PlayerController.prototype, "getPlayers", null);
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Object)
+    __metadata("design:returntype", Promise)
 ], PlayerController.prototype, "createPlayer", null);
 exports.PlayerController = PlayerController = __decorate([
     (0, common_1.Controller)('api/player'),

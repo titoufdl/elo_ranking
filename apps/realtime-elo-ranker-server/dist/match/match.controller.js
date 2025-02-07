@@ -19,19 +19,25 @@ let MatchController = class MatchController {
     constructor(appService) {
         this.appService = appService;
     }
-    publishMatchResult(matchResultDto) {
+    async publishMatchResult(matchResultDto) {
         const { winner, loser, draw } = matchResultDto;
         if ((!winner || typeof winner !== 'string') || (!loser || typeof loser !== 'string')) {
             throw new common_1.HttpException({ code: 0, message: "Les identifiants du gagnant et du perdant sont obligatoires et doivent être des chaînes de caractères" }, common_1.HttpStatus.UNPROCESSABLE_ENTITY);
         }
-        const winnerPlayer = this.appService.findPlayerById(winner);
-        const loserPlayer = this.appService.findPlayerById(loser);
+        const winnerPlayer = await this.appService.findPlayerById(winner);
+        const loserPlayer = await this.appService.findPlayerById(loser);
         if (!winnerPlayer || !loserPlayer) {
             throw new common_1.HttpException({ code: 0, message: "Soit le gagnant, soit le perdant indiqué n'existe pas" }, common_1.HttpStatus.UNPROCESSABLE_ENTITY);
         }
-        if (draw) {
-            return { winner: winnerPlayer, loser: loserPlayer };
-        }
+        const K = 32;
+        const expectedScoreWinner = 1 / (1 + Math.pow(10, (loserPlayer.rank - winnerPlayer.rank) / 400));
+        const expectedScoreLoser = 1 / (1 + Math.pow(10, (winnerPlayer.rank - loserPlayer.rank) / 400));
+        winnerPlayer.rank += K * (1 - expectedScoreWinner);
+        loserPlayer.rank += K * (0 - expectedScoreLoser);
+        winnerPlayer.rank = Math.round(winnerPlayer.rank);
+        loserPlayer.rank = Math.round(loserPlayer.rank);
+        this.appService.updatePlayer(winnerPlayer);
+        this.appService.updatePlayer(loserPlayer);
         return { winner: winnerPlayer, loser: loserPlayer };
     }
 };
@@ -41,7 +47,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Object)
+    __metadata("design:returntype", Promise)
 ], MatchController.prototype, "publishMatchResult", null);
 exports.MatchController = MatchController = __decorate([
     (0, common_1.Controller)('api/match'),

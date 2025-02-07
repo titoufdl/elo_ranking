@@ -1,5 +1,5 @@
 import { Controller, Post, Body, HttpException, HttpStatus, Get } from '@nestjs/common';
-import { AppService, Player } from '../app.service';
+import { AppService } from '../app.service';
 
 interface CreatePlayerDto {
   id: string;
@@ -10,11 +10,12 @@ export class PlayerController {
   constructor(private readonly appService: AppService) {}
 
   @Get()   
-    getPlayers(): Player[] {
-        return this.appService.getPlayers();
+    async getPlayers(): Promise<string> {
+        return await this.appService.getPlayers();
     }
+
   @Post()
-  createPlayer(@Body() createPlayerDto: CreatePlayerDto): Player {
+  async createPlayer(@Body() createPlayerDto: CreatePlayerDto) {
     const { id } = createPlayerDto;
 
     if (!id || typeof id !== 'string' || id.trim() === '') {
@@ -24,7 +25,7 @@ export class PlayerController {
       );
     }
 
-    const existingPlayer = this.appService.findPlayerById(id);
+    const existingPlayer = await this.appService.findPlayerById(id);
     if (existingPlayer) {
       throw new HttpException(
         { code: 0, message: 'Le joueur existe déjà' },
@@ -32,7 +33,7 @@ export class PlayerController {
       );
     }
 
-    const newPlayer: Player = { id, rank: 0 };
+    const newPlayer: any = { id: id, rank: 1000 };
     this.appService.addPlayer(newPlayer);
     return newPlayer;
   }

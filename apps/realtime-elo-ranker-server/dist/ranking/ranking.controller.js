@@ -16,15 +16,15 @@ let RankingController = class RankingController {
     constructor(appService) {
         this.appService = appService;
     }
-    getRanking() {
-        const players = this.appService.getPlayers();
+    async getRanking() {
+        const players = await this.appService.getPlayers();
         if (players.length === 0) {
             throw new common_1.HttpException({
                 code: 0,
                 message: 'Le classement n\'est pas disponible car aucun joueur n\'existe',
             }, common_1.HttpStatus.NOT_FOUND);
         }
-        return players.sort((a, b) => a.rank - b.rank);
+        return players;
     }
 };
 exports.RankingController = RankingController;
@@ -32,7 +32,7 @@ __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Array)
+    __metadata("design:returntype", Promise)
 ], RankingController.prototype, "getRanking", null);
 exports.RankingController = RankingController = __decorate([
     (0, common_1.Controller)('api/ranking'),

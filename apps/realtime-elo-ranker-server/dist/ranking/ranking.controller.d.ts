@@ -1,6 +1,6 @@
-import { AppService, Player } from '../app.service';
+import { AppService } from '../app.service';
 export declare class RankingController {
     private readonly appService;
     constructor(appService: AppService);
-    getRanking(): Player[];
+    getRanking(): Promise<string>;
 }
